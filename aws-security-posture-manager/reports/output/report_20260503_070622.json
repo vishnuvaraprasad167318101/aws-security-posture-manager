@@ -1,0 +1,222 @@
+{
+  "generated_at": "2026-05-03T07:06:22.081776+00:00",
+  "summary": {
+    "total_findings": 8,
+    "accounts_scanned": 3,
+    "risk_levels": {
+      "CRITICAL": 0,
+      "HIGH": 1,
+      "MEDIUM": 1,
+      "LOW": 1,
+      "PASS": 0
+    }
+  },
+  "scores": [
+    {
+      "account_id": "111122223333",
+      "account_name": "production",
+      "region": "us-east-1",
+      "raw_score": 178.0,
+      "normalized_score": 71,
+      "risk_level": "HIGH",
+      "findings_count": {
+        "CRITICAL": 2,
+        "HIGH": 2,
+        "MEDIUM": 2,
+        "LOW": 0
+      },
+      "top_issues": [
+        "SG dev-open (sg-0fff111222333) allows ALL inbound traffic from 0.0.0.0/0.",
+        "SG web-servers (sg-0abc123def456) exposes SSH (port 22) to 0.0.0.0/0.",
+        "S3 bucket 'company-data-bucket-prod' has incomplete Public Access Block settings."
+      ],
+      "drift": [
+        "NEW: [CRITICAL] SG_ALL_TRAFFIC_OPEN on sg-0fff111222333"
+      ]
+    },
+    {
+      "account_id": "222233334444",
+      "account_name": "staging",
+      "region": "us-east-1",
+      "raw_score": 95.0,
+      "normalized_score": 38,
+      "risk_level": "MEDIUM",
+      "findings_count": {
+        "CRITICAL": 1,
+        "HIGH": 0,
+        "MEDIUM": 1,
+        "LOW": 0
+      },
+      "top_issues": [
+        "SG admin-access (sg-0staging111) exposes RDP (port 3389) to 0.0.0.0/0.",
+        "VPC staging-vpc (vpc-0staging2) does not have active VPC Flow Logs."
+      ],
+      "drift": []
+    },
+    {
+      "account_id": "333344445555",
+      "account_name": "development",
+      "region": "us-east-1",
+      "raw_score": 10.0,
+      "normalized_score": 4,
+      "risk_level": "LOW",
+      "findings_count": {
+        "CRITICAL": 0,
+        "HIGH": 0,
+        "MEDIUM": 1,
+        "LOW": 0
+      },
+      "top_issues": [
+        "SG dev-api-sg (sg-0dev222) allows inbound ports 8080-8090 (tcp) from 0.0.0.0/0."
+      ],
+      "drift": []
+    }
+  ],
+  "findings": [
+    {
+      "account_id": "111122223333",
+      "account_name": "production",
+      "region": "us-east-1",
+      "resource_type": "SecurityGroup",
+      "resource_id": "sg-0abc123def456",
+      "finding_type": "SG_DANGEROUS_PORT_22_OPEN",
+      "severity": "CRITICAL",
+      "description": "SG web-servers (sg-0abc123def456) exposes SSH (port 22) to 0.0.0.0/0.",
+      "recommendation": "Restrict port 22 to known trusted IPs or use a VPN/bastion host.",
+      "details": {
+        "sg_name": "web-servers",
+        "vpc_id": "vpc-0a1b2c3d",
+        "cidr": "0.0.0.0/0",
+        "ports": "22-22",
+        "protocol": "tcp"
+      },
+      "timestamp": "2026-05-03T07:06:22.068752"
+    },
+    {
+      "account_id": "111122223333",
+      "account_name": "production",
+      "region": "us-east-1",
+      "resource_type": "SecurityGroup",
+      "resource_id": "sg-0def789abc012",
+      "finding_type": "SG_DANGEROUS_PORT_3306_OPEN",
+      "severity": "HIGH",
+      "description": "SG database-sg (sg-0def789abc012) exposes MySQL (port 3306) to 0.0.0.0/0.",
+      "recommendation": "Restrict port 3306 to application-tier Security Group only.",
+      "details": {
+        "sg_name": "database-sg",
+        "vpc_id": "vpc-0a1b2c3d",
+        "cidr": "0.0.0.0/0",
+        "ports": "3306-3306",
+        "protocol": "tcp"
+      },
+      "timestamp": "2026-05-03T07:06:22.068771"
+    },
+    {
+      "account_id": "111122223333",
+      "account_name": "production",
+      "region": "us-east-1",
+      "resource_type": "SecurityGroup",
+      "resource_id": "sg-0fff111222333",
+      "finding_type": "SG_ALL_TRAFFIC_OPEN",
+      "severity": "CRITICAL",
+      "description": "SG dev-open (sg-0fff111222333) allows ALL inbound traffic from 0.0.0.0/0.",
+      "recommendation": "Restrict to specific ports and CIDR ranges required for your workload.",
+      "details": {
+        "sg_name": "dev-open",
+        "vpc_id": "vpc-0a1b2c3d",
+        "cidr": "0.0.0.0/0",
+        "ports": "0-65535",
+        "protocol": "-1"
+      },
+      "timestamp": "2026-05-03T07:06:22.068783"
+    },
+    {
+      "account_id": "111122223333",
+      "account_name": "production",
+      "region": "us-east-1",
+      "resource_type": "VPC",
+      "resource_id": "vpc-0deadbeef001",
+      "finding_type": "VPC_FLOW_LOGS_DISABLED",
+      "severity": "MEDIUM",
+      "description": "VPC app-vpc (vpc-0deadbeef001) does not have active VPC Flow Logs.",
+      "recommendation": "Enable VPC Flow Logs to CloudWatch Logs or S3 for network visibility.",
+      "details": {
+        "vpc_name": "app-vpc",
+        "is_default": false
+      },
+      "timestamp": "2026-05-03T07:06:22.068787"
+    },
+    {
+      "account_id": "111122223333",
+      "account_name": "production",
+      "region": "us-east-1",
+      "resource_type": "S3Bucket",
+      "resource_id": "company-data-bucket-prod",
+      "finding_type": "S3_PUBLIC_ACCESS_NOT_FULLY_BLOCKED",
+      "severity": "HIGH",
+      "description": "S3 bucket 'company-data-bucket-prod' has incomplete Public Access Block settings.",
+      "recommendation": "Enable all four S3 Block Public Access settings.",
+      "details": {
+        "missing_settings": [
+          "BlockPublicAcls"
+        ],
+        "current_config": {}
+      },
+      "timestamp": "2026-05-03T07:06:22.068791"
+    },
+    {
+      "account_id": "222233334444",
+      "account_name": "staging",
+      "region": "us-east-1",
+      "resource_type": "SecurityGroup",
+      "resource_id": "sg-0staging111",
+      "finding_type": "SG_DANGEROUS_PORT_3389_OPEN",
+      "severity": "CRITICAL",
+      "description": "SG admin-access (sg-0staging111) exposes RDP (port 3389) to 0.0.0.0/0.",
+      "recommendation": "Restrict port 3389 to VPN CIDR range only.",
+      "details": {
+        "sg_name": "admin-access",
+        "vpc_id": "vpc-0staging1",
+        "cidr": "0.0.0.0/0",
+        "ports": "3389-3389",
+        "protocol": "tcp"
+      },
+      "timestamp": "2026-05-03T07:06:22.068794"
+    },
+    {
+      "account_id": "222233334444",
+      "account_name": "staging",
+      "region": "us-east-1",
+      "resource_type": "VPC",
+      "resource_id": "vpc-0staging2",
+      "finding_type": "VPC_FLOW_LOGS_DISABLED",
+      "severity": "MEDIUM",
+      "description": "VPC staging-vpc (vpc-0staging2) does not have active VPC Flow Logs.",
+      "recommendation": "Enable VPC Flow Logs to CloudWatch Logs.",
+      "details": {
+        "vpc_name": "staging-vpc",
+        "is_default": false
+      },
+      "timestamp": "2026-05-03T07:06:22.068798"
+    },
+    {
+      "account_id": "333344445555",
+      "account_name": "development",
+      "region": "us-east-1",
+      "resource_type": "SecurityGroup",
+      "resource_id": "sg-0dev222",
+      "finding_type": "SG_PORT_OPEN_TO_INTERNET",
+      "severity": "MEDIUM",
+      "description": "SG dev-api-sg (sg-0dev222) allows inbound ports 8080-8090 (tcp) from 0.0.0.0/0.",
+      "recommendation": "Evaluate whether broad internet access is necessary; restrict if possible.",
+      "details": {
+        "sg_name": "dev-api-sg",
+        "vpc_id": "vpc-0dev1",
+        "cidr": "0.0.0.0/0",
+        "ports": "8080-8090",
+        "protocol": "tcp"
+      },
+      "timestamp": "2026-05-03T07:06:22.068801"
+    }
+  ]
+}

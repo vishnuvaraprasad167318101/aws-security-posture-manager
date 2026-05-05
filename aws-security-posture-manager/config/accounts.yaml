@@ -1,0 +1,24 @@
+accounts:
+  - id: "123456789012"
+    name: "production"
+    role_name: "SecurityAuditRole"
+    regions:
+      - us-east-1
+      - us-west-2
+  - id: "234567890123"
+    name: "staging"
+    role_name: "SecurityAuditRole"
+    regions:
+      - us-east-1
+  - id: "345678901234"
+    name: "development"
+    role_name: "SecurityAuditRole"
+    regions:
+      - us-east-1
+
+settings:
+  risk_score_threshold: 70
+  dynamodb_table: "security-posture-history"
+  report_output_dir: "reports/output"
+  guardduty_enabled: true
+  retention_days: 90

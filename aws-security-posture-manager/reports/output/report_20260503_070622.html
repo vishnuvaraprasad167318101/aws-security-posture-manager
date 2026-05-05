@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AWS Security Posture Report</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; padding: 20px; color: #333; }
+  h1 { background: #1a252f; color: #fff; padding: 16px 24px; border-radius: 6px; margin: 0 0 20px; }
+  .summary { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+  .card { background: #fff; border-radius: 6px; padding: 16px 24px; flex: 1; min-width: 150px;
+          box-shadow: 0 1px 4px rgba(0,0,0,.12); text-align: center; }
+  .card .num { font-size: 2rem; font-weight: bold; }
+  .CRITICAL { color: #c0392b; } .HIGH { color: #e67e22; }
+  .MEDIUM   { color: #f1c40f; } .LOW  { color: #27ae60; } .PASS { color: #2ecc71; }
+  table { width: 100%; border-collapse: collapse; background: #fff;
+          border-radius: 6px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.12); }
+  th { background: #1a252f; color: #fff; padding: 10px 14px; text-align: left; }
+  td { padding: 9px 14px; border-bottom: 1px solid #eee; font-size: .9rem; }
+  tr:last-child td { border-bottom: none; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; color: #fff; font-size:.8rem; font-weight:bold; }
+  .bg-CRITICAL { background:#c0392b; } .bg-HIGH { background:#e67e22; }
+  .bg-MEDIUM   { background:#f39c12; } .bg-LOW  { background:#27ae60; } .bg-PASS { background:#2ecc71; }
+  .section-title { margin: 28px 0 10px; font-size: 1.2rem; font-weight: bold; }
+  footer { margin-top: 30px; font-size: .8rem; color: #999; }
+</style>
+</head>
+<body>
+<h1>AWS Security Posture Report</h1>
+<p>Generated: <strong>2026-05-03 07:06 UTC</strong></p>
+
+<div class="summary">
+  <div class="card"><div class="num CRITICAL">0</div>CRITICAL Accounts</div>
+  <div class="card"><div class="num HIGH">1</div>HIGH Accounts</div>
+  <div class="card"><div class="num">8</div>Total Findings</div>
+  <div class="card"><div class="num">3</div>Accounts Scanned</div>
+</div>
+
+<div class="section-title">Risk Scores by Account / Region</div>
+<table>
+  <thead><tr><th>Account</th><th>Account ID</th><th>Region</th><th>Score</th><th>Level</th><th>CRIT</th><th>HIGH</th><th>MED</th><th>Drift</th></tr></thead>
+  <tbody>
+  
+  <tr>
+    <td>production</td>
+    <td>111122223333</td>
+    <td>us-east-1</td>
+    <td><strong>71/100</strong></td>
+    <td><span class="badge bg-HIGH">HIGH</span></td>
+    <td class="CRITICAL">2</td>
+    <td class="HIGH">2</td>
+    <td class="MEDIUM">2</td>
+    <td>1 new</td>
+  </tr>
+  
+  <tr>
+    <td>staging</td>
+    <td>222233334444</td>
+    <td>us-east-1</td>
+    <td><strong>38/100</strong></td>
+    <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+    <td class="CRITICAL">1</td>
+    <td class="HIGH">0</td>
+    <td class="MEDIUM">1</td>
+    <td>—</td>
+  </tr>
+  
+  <tr>
+    <td>development</td>
+    <td>333344445555</td>
+    <td>us-east-1</td>
+    <td><strong>4/100</strong></td>
+    <td><span class="badge bg-LOW">LOW</span></td>
+    <td class="CRITICAL">0</td>
+    <td class="HIGH">0</td>
+    <td class="MEDIUM">1</td>
+    <td>—</td>
+  </tr>
+  
+  </tbody>
+</table>
+
+<div class="section-title">All Findings</div>
+<table>
+  <thead><tr><th>Severity</th><th>Account</th><th>Region</th><th>Resource</th><th>Type</th><th>Description</th><th>Recommendation</th></tr></thead>
+  <tbody>
+  
+  <tr>
+    <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+    <td>production</td>
+    <td>us-east-1</td>
+    <td>sg-0abc123def456</td>
+    <td>SG_DANGEROUS_PORT_22_OPEN</td>
+    <td>SG web-servers (sg-0abc123def456) exposes SSH (port 22) to 0.0.0.0/0.</td>
+    <td>Restrict port 22 to known trusted IPs or use a VPN/bastion host.</td>
+  </tr>
+  
+  <tr>
+    <td><span class="badge bg-HIGH">HIGH</span></td>
+    <td>production</td>
+    <td>us-east-1</td>
+    <td>sg-0def789abc012</td>
+    <td>SG_DANGEROUS_PORT_3306_OPEN</td>
+    <td>SG database-sg (sg-0def789abc012) exposes MySQL (port 3306) to 0.0.0.0/0.</td>
+    <td>Restrict port 3306 to application-tier Security Group only.</td>
+  </tr>
+  
+  <tr>
+    <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+    <td>production</td>
+    <td>us-east-1</td>
+    <td>sg-0fff111222333</td>
+    <td>SG_ALL_TRAFFIC_OPEN</td>
+    <td>SG dev-open (sg-0fff111222333) allows ALL inbound traffic from 0.0.0.0/0.</td>
+    <td>Restrict to specific ports and CIDR ranges required for your workload.</td>
+  </tr>
+  
+  <tr>
+    <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+    <td>production</td>
+    <td>us-east-1</td>
+    <td>vpc-0deadbeef001</td>
+    <td>VPC_FLOW_LOGS_DISABLED</td>
+    <td>VPC app-vpc (vpc-0deadbeef001) does not have active VPC Flow Logs.</td>
+    <td>Enable VPC Flow Logs to CloudWatch Logs or S3 for network visibility.</td>
+  </tr>
+  
+  <tr>
+    <td><span class="badge bg-HIGH">HIGH</span></td>
+    <td>production</td>
+    <td>us-east-1</td>
+    <td>company-data-bucket-prod</td>
+    <td>S3_PUBLIC_ACCESS_NOT_FULLY_BLOCKED</td>
+    <td>S3 bucket 'company-data-bucket-prod' has incomplete Public Access Block settings.</td>
+    <td>Enable all four S3 Block Public Access settings.</td>
+  </tr>
+  
+  <tr>
+    <td><span class="badge bg-CRITICAL">CRITICAL</span></td>
+    <td>staging</td>
+    <td>us-east-1</td>
+    <td>sg-0staging111</td>
+    <td>SG_DANGEROUS_PORT_3389_OPEN</td>
+    <td>SG admin-access (sg-0staging111) exposes RDP (port 3389) to 0.0.0.0/0.</td>
+    <td>Restrict port 3389 to VPN CIDR range only.</td>
+  </tr>
+  
+  <tr>
+    <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+    <td>staging</td>
+    <td>us-east-1</td>
+    <td>vpc-0staging2</td>
+    <td>VPC_FLOW_LOGS_DISABLED</td>
+    <td>VPC staging-vpc (vpc-0staging2) does not have active VPC Flow Logs.</td>
+    <td>Enable VPC Flow Logs to CloudWatch Logs.</td>
+  </tr>
+  
+  <tr>
+    <td><span class="badge bg-MEDIUM">MEDIUM</span></td>
+    <td>development</td>
+    <td>us-east-1</td>
+    <td>sg-0dev222</td>
+    <td>SG_PORT_OPEN_TO_INTERNET</td>
+    <td>SG dev-api-sg (sg-0dev222) allows inbound ports 8080-8090 (tcp) from 0.0.0.0/0.</td>
+    <td>Evaluate whether broad internet access is necessary; restrict if possible.</td>
+  </tr>
+  
+  
+  </tbody>
+</table>
+
+<footer>AWS Security Posture Manager &mdash; 2026-05-03 07:06 UTC</footer>
+</body>
+</html>
